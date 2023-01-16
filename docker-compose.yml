@@ -1,0 +1,45 @@
+services:
+  app_wo_ssh:
+    build:
+      context: .
+      dockerfile: Dockerfile.wo-ssh
+    init: true
+    tty: true
+    ports:
+      - 8080:8080
+    volumes:
+      - repo:/home/node/ufuk-vue-grid-component
+  app:
+    build: .
+    init: true
+    tty: true
+    ports:
+      - 8080:8080
+    volumes:
+      - repo:/home/node/ufuk-vue-grid-component
+  cypress:
+    image: cypress/included:9.7.0
+    init: true
+    working_dir: /e2e
+    volumes:
+      - repo:/e2e
+  sonarqube:
+    image: sonarqube
+    init: true
+    environment:
+      - SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true
+    ports:
+      - 9000:9000
+  sonar_scanner:
+    image: sonarsource/sonar-scanner-cli
+    init: true
+    depends_on:
+      - sonarqube
+    environment:
+      - SONAR_HOST_URL=http://sonarqube:9000
+      - SONAR_SCANNER_OPTS=-Dsonar.projectKey=override-this-value-in-docker-compose.override.yml
+      - SONAR_LOGIN=override-this-value-in-docker-compose.override.yml
+    volumes:
+      - repo:/usr/src
+volumes:
+  repo:
