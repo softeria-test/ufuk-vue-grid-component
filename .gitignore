@@ -2,7 +2,9 @@
 node_modules
 /dist
 
+# local my env files
 id_rsa
+docker-compose.override.yml
 
 # yarn
 .yarn/*
