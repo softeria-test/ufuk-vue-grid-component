@@ -6,6 +6,9 @@ node_modules
 id_rsa
 docker-compose.override.yml
 
+# Logs
+coverage
+
 # yarn
 .yarn/*
 !.yarn/releases
