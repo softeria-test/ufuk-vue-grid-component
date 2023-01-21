@@ -2,6 +2,16 @@
 node_modules
 /dist
 
+# local my env files
+id_rsa
+docker-compose.override.yml
+
+# Logs
+coverage
+
+# yarn
+.yarn/*
+!.yarn/releases
 
 # local env files
 .env.local
